@@ -4,6 +4,20 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class Main {
+
+    static int fiveKind;
+    static int fullHouse;
+    static int fourKind;
+    static int threeKind;
+    static int twoPair;
+    static int pair;
+    static int high;
+
+    public static void detectHands(String[] hand)
+    {
+
+    }
+
     public static void main(String[] args) {
 
         // step 1: create a file object
@@ -25,6 +39,7 @@ public class Main {
                 String[] stringHands = line.split(",");
                 stringHands = line.split("\\|");
                 System.out.println(Arrays.toString(stringHands));
+                detectHands(stringHands);
             }
         }
         catch (FileNotFoundException fe) {
