@@ -3,7 +3,7 @@ public class Hand {
     double handScore;
     int rank;
 
-    public void handProcessing(String[] hand)
+    public double handProcessing(String[] hand)
     {
         int currentHand = Main.detectHands(hand);
 
@@ -252,6 +252,7 @@ public class Hand {
 
         }
         //sort by comparing score values
+        return handScore;
     }
 
     public int getRank() {
