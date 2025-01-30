@@ -86,19 +86,29 @@ public class Main {
                 count++;
             }
         }
+        boolean hasThree = false;
+        boolean hasTwo = false;
         for (int similarity : similarities) {
+            if (similarity == 2) {
+                hasThree = true;
+            }
+            if (similarity == 1) {
+                hasTwo = true;
+            }
+        }
+
+        for (int similarity : similarities) {
+
             if (similarity == 4) {
                 five = true;
-            }
-            else if (similarity == 3) {
+            } else if (similarity == 3) {
                 four = true;
             }
-            else if (similarity == 2) {
-                if (similarity == 1) {
-                    full = true;
-                } else {
-                    three = true;
-            }
+
+            if (hasTwo && hasThree) {
+                full = true;
+            } else if (hasThree) {
+                three = true;
             } else if (count == 4) {
                 two = true;
             } else if (similarity == 1) {
@@ -128,13 +138,6 @@ public class Main {
         if(isHigh){
             high++;
         }
-
-
-//        System.out.println(indexZeroSimilarities);
-//        System.out.println(indexOneSimilarities);
-//        System.out.println(indexTwoSimilarities);
-//        System.out.println(indexThreeSimilarities);
-//        System.out.println(indexFourSimilarities);
     }
 
     public static void main(String[] args) {
@@ -165,14 +168,13 @@ public class Main {
             System.exit(1);
         }
 
-
-        System.out.println(fiveKind);
-        System.out.println(fullHouse);
-        System.out.println(fourKind);
-        System.out.println(threeKind);
-        System.out.println(twoPair);
-        System.out.println(pair);
-        System.out.println(high);
+        System.out.println("Five of a kind: " + fiveKind);
+        System.out.println("Full houses: " + fullHouse);
+        System.out.println("Four of a kind: " + fourKind);
+        System.out.println("Three of a kind: " + threeKind);
+        System.out.println("Two pairs: " + twoPair);
+        System.out.println("Pairs: " + pair);
+        System.out.println("High cards: " + high);
 
     }
 }
