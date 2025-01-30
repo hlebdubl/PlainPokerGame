@@ -78,6 +78,7 @@ public class Main {
         boolean one = false;
         boolean full = false;
         boolean two = false;
+        boolean isHigh = false;
 
         int count = 0;
         for(int i = 0; i < similarities.length; i++){
@@ -85,29 +86,25 @@ public class Main {
                 count++;
             }
         }
-        for(int i = 0; i < similarities.length; i++){
-
-            boolean hasThree = false;
-            if(similarities[i] == 4){
+        for (int similarity : similarities) {
+            if (similarity == 4) {
                 five = true;
             }
-            if(similarities[i] == 3){
+            else if (similarity == 3) {
                 four = true;
             }
-            if(similarities[i] == 2){
-                hasThree = true;
+            else if (similarity == 2) {
+                if (similarity == 1) {
+                    full = true;
+                } else {
+                    three = true;
             }
-            if(hasThree && similarities[i] == 1){
-                full = true;
-            }
-            else if(similarities[i] == 2){
-                three = true;
-            }
-            else if(count == 4){
+            } else if (count == 4) {
                 two = true;
-            }
-            else if(similarities[i] == 1){
+            } else if (similarity == 1) {
                 one = true;
+            } else if (!five && !four && !three && !one && !two && !full) {
+                isHigh = true;
             }
         }
         if(five){
@@ -127,6 +124,9 @@ public class Main {
         }
         if(two){
             twoPair++;
+        }
+        if(isHigh){
+            high++;
         }
 
 
@@ -172,6 +172,7 @@ public class Main {
         System.out.println(threeKind);
         System.out.println(twoPair);
         System.out.println(pair);
+        System.out.println(high);
 
     }
 }
