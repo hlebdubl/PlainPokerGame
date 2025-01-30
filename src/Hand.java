@@ -2,161 +2,36 @@ public class Hand {
 
     double handScore;
 
-    public static int detectHands(String[] hand)
-    {
-        int indexZeroSimilarities = 0;
-        int indexOneSimilarities = 0;
-        int indexTwoSimilarities = 0;
-        int indexThreeSimilarities = 0;
-        int indexFourSimilarities = 0;
-
-        for(int i = 0; i < hand.length; i++)
-        {
-            if (hand[0].equals(hand[i]))
-            {
-                indexZeroSimilarities++;
-            }
-        }
-        indexZeroSimilarities--;
-        for(int i = 0; i < hand.length; i++)
-        {
-            if (hand[1].equals(hand[i]))
-            {
-                indexOneSimilarities++;
-            }
-        }
-        indexOneSimilarities--;
-        for(int i = 0; i < hand.length; i++)
-        {
-            if (hand[2].equals(hand[i]))
-            {
-                indexTwoSimilarities++;
-            }
-        }
-        indexTwoSimilarities--;
-        for(int i = 0; i < hand.length; i++)
-        {
-            if (hand[3].equals(hand[i]))
-            {
-                indexThreeSimilarities++;
-            }
-        }
-        indexThreeSimilarities--;
-        for(int i = 0; i < hand.length; i++)
-        {
-            if (hand[4].equals(hand[i]))
-            {
-                indexFourSimilarities++;
-            }
-        }
-        indexFourSimilarities--;
-
-        int[] similarities = new int[5];
-        similarities[0] = indexZeroSimilarities;
-        similarities[1] = indexOneSimilarities;
-        similarities[2] = indexTwoSimilarities;
-        similarities[3] = indexThreeSimilarities;
-        similarities[4] = indexFourSimilarities;
-
-        boolean five = false;
-        boolean four = false;
-        boolean three = false;
-        boolean one = false;
-        boolean full = false;
-        boolean two = false;
-        boolean isHigh = false;
-
-        int count = 0;
-        for(int i = 0; i < similarities.length; i++){
-            if(similarities[i] == 1){
-                count++;
-            }
-        }
-        boolean hasThree = false;
-        boolean hasTwo = false;
-        for (int similarity : similarities) {
-            if (similarity == 2) {
-                hasThree = true;
-            }
-            if (similarity == 1) {
-                hasTwo = true;
-            }
-        }
-
-        for (int similarity : similarities) {
-
-            if (similarity == 4) {
-                five = true;
-            } else if (similarity == 3) {
-                four = true;
-            }
-
-            if (hasTwo && hasThree) {
-                full = true;
-            } else if (hasThree) {
-                three = true;
-            } else if (count == 4) {
-                two = true;
-            } else if (similarity == 1) {
-                one = true;
-            } else if (!five && !four && !three && !one && !two && !full) {
-                isHigh = true;
-            }
-        }
-        if(five){
-            return 7;
-        }
-        if(four){
-            return 6;
-        }
-        if(three){
-            return 5;
-        }
-        if(full){
-            return 4;
-        }
-        if(one){
-            return 3;
-        }
-        if(two){
-            return 2;
-        }
-        if(isHigh){
-            return 1;
-        }
-        else
-        {
-            return 0; //something is fucked if it does this
-        }
-    }
 
     public void handProcessing(String[] hand)
     {
-        if (detectHands(hand) == 7)
+        int currentHand = Main.detectHands(hand);
+
+        if (currentHand == 7)
         {
             handScore = 1000000.0000000000;
         }
-        else if (detectHands(hand) == 6)
+        else if (currentHand == 6)
         {
             handScore = 100000.0000000000;
         }
-        else if (detectHands(hand) == 5)
+        else if (currentHand == 5)
         {
             handScore = 10000.0000000000;
         }
-        else if (detectHands(hand) == 4)
+        else if (currentHand == 4)
         {
             handScore = 1000.0000000000;
         }
-        else if (detectHands(hand) == 3)
+        else if (currentHand == 3)
         {
             handScore = 100.0000000000;
         }
-        else if (detectHands(hand) == 2)
+        else if (currentHand == 2)
         {
             handScore = 10.0000000000;
         }
-        else if (detectHands(hand) == 1)
+        else if (currentHand == 1)
         {
             handScore = 1.0000000000;
         }
@@ -185,7 +60,7 @@ public class Hand {
                 handScore += 0.07;
                 break;
             case "7":
-                handScore += .06;
+                handScore += 0.06;
                 break;
             case "6":
                 handScore += 0.05;
@@ -228,7 +103,7 @@ public class Hand {
                 handScore += 0.0007;
                 break;
             case "7":
-                handScore += .0006;
+                handScore += 0.0006;
                 break;
             case "6":
                 handScore += 0.0005;
@@ -247,7 +122,135 @@ public class Hand {
                 break;
 
         }
+        switch (hand[2])
+        {
+            case "Ace":
+                handScore += 0.000013;
+                break;
+            case "King":
+                handScore += 0.000012;
+                break;
+            case "Queen":
+                handScore += 0.000011;
+                break;
+            case "Jack":
+                handScore += 0.00001;
+                break;
+            case "10":
+                handScore += 0.000009;
+                break;
+            case "9":
+                handScore += 0.000008;
+                break;
+            case "8":
+                handScore += 0.000007;
+                break;
+            case "7":
+                handScore += 0.000006;
+                break;
+            case "6":
+                handScore += 0.000005;
+                break;
+            case "5":
+                handScore += 0.000004;
+                break;
+            case "4":
+                handScore += 0.000003;
+                break;
+            case "3":
+                handScore += 0.000002;
+                break;
+            case "2":
+                handScore += 0.000001;
+                break;
 
+        }
+        switch (hand[3])
+        {
+            case "Ace":
+                handScore += 0.00000013;
+                break;
+            case "King":
+                handScore += 0.00000012;
+                break;
+            case "Queen":
+                handScore += 0.00000011;
+                break;
+            case "Jack":
+                handScore += 0.0000001;
+                break;
+            case "10":
+                handScore += 0.00000009;
+                break;
+            case "9":
+                handScore += 0.00000008;
+                break;
+            case "8":
+                handScore += 0.00000007;
+                break;
+            case "7":
+                handScore += 0.00000006;
+                break;
+            case "6":
+                handScore += 0.00000005;
+                break;
+            case "5":
+                handScore += 0.00000004;
+                break;
+            case "4":
+                handScore += 0.00000003;
+                break;
+            case "3":
+                handScore += 0.00000002;
+                break;
+            case "2":
+                handScore += 0.00000001;
+                break;
+
+        }
+        switch (hand[4])
+        {
+            case "Ace":
+                handScore += 0.0000000013;
+                break;
+            case "King":
+                handScore += 0.0000000012;
+                break;
+            case "Queen":
+                handScore += 0.0000000011;
+                break;
+            case "Jack":
+                handScore += 0.000000001;
+                break;
+            case "10":
+                handScore += 0.0000000009;
+                break;
+            case "9":
+                handScore += 0.0000000008;
+                break;
+            case "8":
+                handScore += 0.0000000007;
+                break;
+            case "7":
+                handScore += 0.0000000006;
+                break;
+            case "6":
+                handScore += 0.0000000005;
+                break;
+            case "5":
+                handScore += 0.0000000004;
+                break;
+            case "4":
+                handScore += 0.0000000003;
+                break;
+            case "3":
+                handScore += 0.0000000002;
+                break;
+            case "2":
+                handScore += 0.0000000001;
+                break;
+
+        }
         //sort by comparing score values
     }
 

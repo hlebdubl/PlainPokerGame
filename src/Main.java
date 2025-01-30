@@ -16,7 +16,7 @@ public class Main {
     static int pair;
     static int high;
 
-    public static void detectHands(String[] hand)
+    public static int detectHands(String[] hand)
     {
         int indexZeroSimilarities = 0;
         int indexOneSimilarities = 0;
@@ -119,24 +119,34 @@ public class Main {
         }
         if(five){
             fiveKind++;
+            return 7;
         }
         if(four){
             fourKind++;
+            return 5;
         }
         if(three){
             threeKind++;
+            return 4;
         }
         if(full){
             fullHouse++;
+            return 6;
         }
         if(one){
             pair++;
+            return 2;
         }
         if(two){
             twoPair++;
+            return 3;
         }
         if(isHigh){
             high++;
+            return 1;
+        }
+        else{
+            return 0;
         }
     }
 
