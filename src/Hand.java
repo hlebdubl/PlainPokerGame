@@ -169,47 +169,84 @@ public class Hand {
             case "King":
                 handScore += 0.12;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "Queen":
+                handScore += 0.11;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "Jack":
+                handScore += 0.1;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "10":
+                handScore += 0.09;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "9":
+                handScore += 0.08;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "8":
+                handScore += 0.07;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "7":
+                handScore += .06;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "6":
+                handScore += 0.05;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "5":
+                handScore += 0.04;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "4":
+                handScore += 0.03;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "3":
+                handScore += 0.02;
                 break;
-            case "Ace":
-                handScore += 0.13;
+            case "2":
+                handScore += 0.01;
                 break;
+
         }
+        switch (hand[1])
+        {
+            case "Ace":
+                handScore += 0.0013;
+                break;
+            case "King":
+                handScore += 0.0012;
+                break;
+            case "Queen":
+                handScore += 0.0011;
+                break;
+            case "Jack":
+                handScore += 0.001;
+                break;
+            case "10":
+                handScore += 0.0009;
+                break;
+            case "9":
+                handScore += 0.0008;
+                break;
+            case "8":
+                handScore += 0.0007;
+                break;
+            case "7":
+                handScore += .0006;
+                break;
+            case "6":
+                handScore += 0.0005;
+                break;
+            case "5":
+                handScore += 0.0004;
+                break;
+            case "4":
+                handScore += 0.0003;
+                break;
+            case "3":
+                handScore += 0.0002;
+                break;
+            case "2":
+                handScore += 0.0001;
+                break;
 
-        //switch (second card)
-        //case ace:
-        //handscore += 0.0013
-        //...
-
-        //...
+        }
 
         //sort by comparing score values
     }
