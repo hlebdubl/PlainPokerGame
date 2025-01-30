@@ -172,6 +172,7 @@ public class Main {
                 System.out.println(Arrays.toString(stringHands));
                 detectHands(stringHands);
             }
+
         }
         catch (FileNotFoundException fe) {
             System.out.println("File was not found");

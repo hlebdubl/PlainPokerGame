@@ -1,7 +1,7 @@
 public class Hand {
 
     double handScore;
-
+    int rank;
 
     public void handProcessing(String[] hand)
     {
@@ -254,4 +254,11 @@ public class Hand {
         //sort by comparing score values
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 }
