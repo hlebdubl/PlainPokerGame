@@ -198,7 +198,7 @@ public class Main {
 
             for (int i = 0; i < handList.length; i++)
             {
-                totalBidVal += handList[i].getBid() * handList.length - i;
+                totalBidVal += (handList[i].getBid() * (handList.length - i));
             }
 
         }
@@ -207,7 +207,7 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("total score" + totalBidVal);
+        System.out.println("total score " + (totalBidVal - 1));
 //        System.out.println("Five of a kind: " + fiveKind / 2);
 //        System.out.println("Full houses: " + fullHouse / 2);
 //        System.out.println("Four of a kind: " + fourKind / 2);
