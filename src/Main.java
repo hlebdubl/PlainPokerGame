@@ -207,14 +207,14 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("total score " + (totalBidVal - 1));
-//        System.out.println("Five of a kind: " + fiveKind / 2);
-//        System.out.println("Full houses: " + fullHouse / 2);
-//        System.out.println("Four of a kind: " + fourKind / 2);
-//        System.out.println("Three of a kind: " + threeKind / 2);
-//        System.out.println("Two pairs: " + twoPair / 2);
-//        System.out.println("Pairs: " + pair / 2);
-//        System.out.println("High cards: " + high / 2);
+        System.out.println("Five of a kind: " + fiveKind / 2);
+        System.out.println("Full houses: " + fullHouse / 2);
+        System.out.println("Four of a kind: " + fourKind / 2);
+        System.out.println("Three of a kind: " + threeKind / 2);
+        System.out.println("Two pairs: " +    twoPair / 2);
+        System.out.println("Pairs: " + pair / 2);
+        System.out.println("High cards: " + high / 2);
+        System.out.println("Total bid value: " + (totalBidVal - 1));
 
     }
 }
