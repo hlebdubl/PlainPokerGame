@@ -16,6 +16,8 @@ public class Main {
     static int pair;
     static int high;
 
+    static int totalBidVal = 0;
+
     public static int detectHands(String[] h)
     {
         int indexZeroSimilarities = 0;
@@ -166,13 +168,37 @@ public class Main {
             // a String array where every item in the array is a line from the file
             String[] fileArray = fileData.split("\n");
 
-            for (String line : fileArray) {
-                // split by comma, now we have a list of String numbers
-                String[] stringHands = line.split(",|\\|");
+            Hand[] handList = new Hand[fileArray.length];
+
+            for (int i = 0; i < fileArray.length; i++) {
+
+                String[] stringHands = fileArray[i].split(",|\\|");
+
                 Hand h = new Hand(stringHands);
-                h.handProcessing();
-                System.out.println(Arrays.toString(stringHands));
-                detectHands(stringHands);
+
+                handList[i] = h;
+
+//                System.out.println(Arrays.toString(stringHands));
+//                detectHands(stringHands);
+            }
+
+            for (int i = 0; i < handList.length; i++)
+            {
+                if (!(i == handList.length - 1))
+                {
+                    if (handList[i].getHandScore() < handList[i + 1].getHandScore())
+                    {
+                        Hand tempH = handList[i];
+                        handList[i] = handList[i + 1];
+                        handList[i + 1] = tempH;
+                        i = 0;
+                    }
+                }
+            }
+
+            for (int i = 0; i < handList.length; i++)
+            {
+                totalBidVal += handList[i].getBid() * handList.length - i;
             }
 
         }
@@ -181,13 +207,14 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("Five of a kind: " + fiveKind / 2);
-        System.out.println("Full houses: " + fullHouse / 2);
-        System.out.println("Four of a kind: " + fourKind / 2);
-        System.out.println("Three of a kind: " + threeKind / 2);
-        System.out.println("Two pairs: " + twoPair / 2);
-        System.out.println("Pairs: " + pair / 2);
-        System.out.println("High cards: " + high / 2);
+        System.out.println("total score" + totalBidVal);
+//        System.out.println("Five of a kind: " + fiveKind / 2);
+//        System.out.println("Full houses: " + fullHouse / 2);
+//        System.out.println("Four of a kind: " + fourKind / 2);
+//        System.out.println("Three of a kind: " + threeKind / 2);
+//        System.out.println("Two pairs: " + twoPair / 2);
+//        System.out.println("Pairs: " + pair / 2);
+//        System.out.println("High cards: " + high / 2);
 
     }
 }

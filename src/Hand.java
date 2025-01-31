@@ -13,14 +13,7 @@ public class Hand {
         cards[2] = hand[2];
         cards[3] = hand[3];
         cards[4] = hand[4];
-    }
 
-    public String[] getCards() {
-        return cards;
-    }
-
-    public double handProcessing()
-    {
         int currentHand = Main.detectHands(cards);
 
         if (currentHand == 7)
@@ -265,17 +258,18 @@ public class Hand {
             case "2":
                 handScore += 0.0000000001;
                 break;
-
         }
-        //sort by comparing score values
+    }
+
+    public String[] getCards() {
+        return cards;
+    }
+
+    public int getBid() {
+        return bid;
+    }
+
+    public double getHandScore() {
         return handScore;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 }
