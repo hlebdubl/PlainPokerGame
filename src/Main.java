@@ -16,7 +16,7 @@ public class Main {
     static int pair;
     static int high;
 
-    public static int detectHands(String[] hand)
+    public static int detectHands(String[] h)
     {
         int indexZeroSimilarities = 0;
         int indexOneSimilarities = 0;
@@ -24,41 +24,41 @@ public class Main {
         int indexThreeSimilarities = 0;
         int indexFourSimilarities = 0;
 
-        for(int i = 0; i < hand.length; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if (hand[0].equals(hand[i]))
+            if (h[0].equals(h[i]))
             {
                 indexZeroSimilarities++;
             }
         }
         indexZeroSimilarities--;
-        for(int i = 0; i < hand.length; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if (hand[1].equals(hand[i]))
+            if (h[1].equals(h[i]))
             {
                 indexOneSimilarities++;
             }
         }
         indexOneSimilarities--;
-        for(int i = 0; i < hand.length; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if (hand[2].equals(hand[i]))
+            if (h[2].equals(h[i]))
             {
                 indexTwoSimilarities++;
             }
         }
         indexTwoSimilarities--;
-        for(int i = 0; i < hand.length; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if (hand[3].equals(hand[i]))
+            if (h[3].equals(h[i]))
             {
                 indexThreeSimilarities++;
             }
         }
         indexThreeSimilarities--;
-        for(int i = 0; i < hand.length; i++)
+        for(int i = 0; i < 5; i++)
         {
-            if (hand[4].equals(hand[i]))
+            if (h[4].equals(h[i]))
             {
                 indexFourSimilarities++;
             }
@@ -169,6 +169,8 @@ public class Main {
             for (String line : fileArray) {
                 // split by comma, now we have a list of String numbers
                 String[] stringHands = line.split(",|\\|");
+                Hand h = new Hand(stringHands);
+                h.handProcessing();
                 System.out.println(Arrays.toString(stringHands));
                 detectHands(stringHands);
             }
@@ -179,13 +181,13 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("Five of a kind: " + fiveKind);
-        System.out.println("Full houses: " + fullHouse);
-        System.out.println("Four of a kind: " + fourKind);
-        System.out.println("Three of a kind: " + threeKind);
-        System.out.println("Two pairs: " + twoPair);
-        System.out.println("Pairs: " + pair);
-        System.out.println("High cards: " + high);
+        System.out.println("Five of a kind: " + fiveKind / 2);
+        System.out.println("Full houses: " + fullHouse / 2);
+        System.out.println("Four of a kind: " + fourKind / 2);
+        System.out.println("Three of a kind: " + threeKind / 2);
+        System.out.println("Two pairs: " + twoPair / 2);
+        System.out.println("Pairs: " + pair / 2);
+        System.out.println("High cards: " + high / 2);
 
     }
 }

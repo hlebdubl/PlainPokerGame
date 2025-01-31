@@ -2,10 +2,26 @@ public class Hand {
 
     double handScore;
     int rank;
+    int bid;
+    private String[] cards = new String[5];
 
-    public double handProcessing(String[] hand)
+    public Hand (String[] hand)
     {
-        int currentHand = Main.detectHands(hand);
+        bid = Integer.parseInt(hand[hand.length -1]);
+        cards[0] = hand[0];
+        cards[1] = hand[1];
+        cards[2] = hand[2];
+        cards[3] = hand[3];
+        cards[4] = hand[4];
+    }
+
+    public String[] getCards() {
+        return cards;
+    }
+
+    public double handProcessing()
+    {
+        int currentHand = Main.detectHands(cards);
 
         if (currentHand == 7)
         {
@@ -36,7 +52,7 @@ public class Hand {
             handScore = 1.0000000000;
         }
 
-        switch (hand[0])
+        switch (cards[0])
         {
             case "Ace":
                 handScore += 0.13;
@@ -79,7 +95,7 @@ public class Hand {
                 break;
 
         }
-        switch (hand[1])
+        switch (cards[1])
         {
             case "Ace":
                 handScore += 0.0013;
@@ -122,7 +138,7 @@ public class Hand {
                 break;
 
         }
-        switch (hand[2])
+        switch (cards[2])
         {
             case "Ace":
                 handScore += 0.000013;
@@ -165,7 +181,7 @@ public class Hand {
                 break;
 
         }
-        switch (hand[3])
+        switch (cards[3])
         {
             case "Ace":
                 handScore += 0.00000013;
@@ -208,7 +224,7 @@ public class Hand {
                 break;
 
         }
-        switch (hand[4])
+        switch (cards[4])
         {
             case "Ace":
                 handScore += 0.0000000013;
