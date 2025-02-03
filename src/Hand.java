@@ -14,6 +14,144 @@ public class Hand {
         cards[3] = hand[3];
         cards[4] = hand[4];
 
+        handScore = getHandScore();
+    }
+
+    public int detectHands()
+    {
+        int[] similarities = new int[5];
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[0].equals(cards[i]))
+            {
+                similarities[0]++;
+            }
+        }
+        similarities[0]--;
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[1].equals(cards[i]))
+            {
+                similarities[1]++;
+            }
+        }
+        similarities[1]--;
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[2].equals(cards[i]))
+            {
+                similarities[2]++;
+            }
+        }
+        similarities[2]--;
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[3].equals(cards[i]))
+            {
+                similarities[3]++;
+            }
+        }
+        similarities[3]--;
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[4].equals(cards[i]))
+            {
+                similarities[4]++;
+            }
+        }
+        similarities[4]--;
+
+        int count = 0;
+        for (int similarity : similarities)
+        {
+            if (similarity == 1)
+            {
+                count++;
+            }
+        }
+
+        boolean hasThree = false;
+        boolean hasTwo = false;
+
+        for (int similarity : similarities)
+        {
+            if (similarity == 2)
+            {
+                hasThree = true;
+            }
+            if (similarity == 1)
+            {
+                hasTwo = true;
+            }
+        }
+
+        for (int similarity : similarities) {
+
+            if (similarity == 4)
+            {
+                return 7; //5 kind
+            }
+            else if (similarity == 3)
+            {
+                return 6; //4 kind
+            }
+
+            if (hasTwo && hasThree)
+            {
+                return 5; //full
+            }
+            else if (hasThree)
+            {
+                return 4; //3 kind
+            }
+            else if (count > 2)
+            {
+                return 3; //2 pair
+            }
+            else if (hasTwo)
+            {
+                return 2; //pair
+            }
+            else
+            {
+                return 1; //high
+            }
+        }
+        return 0; //shouldn't happen
+    }
+
+    public static Hand[] sortHandList(Hand[] handList)
+    {
+        for (int i = 0; i < handList.length; i++) //sorting array
+        {
+            if (!(i == handList.length - 1))
+            {
+                if (handList[i].getHandScore() < handList[i + 1].getHandScore())
+                {
+                    Hand tempH = handList[i];
+                    handList[i] = handList[i + 1];
+                    handList[i + 1] = tempH;
+                    i = -1;
+                }
+            }
+        }
+        return handList;
+    }
+
+    public String[] getCards() {
+        return cards;
+    }
+
+    public int getBid() {
+        return bid;
+    }
+
+    public double getHandScore() {
         int currentHand = detectHands();
 
         if (currentHand == 7)
@@ -259,143 +397,6 @@ public class Hand {
                 handScore += 0.0000000001;
                 break;
         }
-    }
-
-    public int detectHands()
-    {
-        int[] similarities = new int[5];
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (cards[0].equals(cards[i]))
-            {
-                similarities[0]++;
-            }
-        }
-        similarities[0]--;
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (cards[1].equals(cards[i]))
-            {
-                similarities[1]++;
-            }
-        }
-        similarities[1]--;
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (cards[2].equals(cards[i]))
-            {
-                similarities[2]++;
-            }
-        }
-        similarities[2]--;
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (cards[3].equals(cards[i]))
-            {
-                similarities[3]++;
-            }
-        }
-        similarities[3]--;
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (cards[4].equals(cards[i]))
-            {
-                similarities[4]++;
-            }
-        }
-        similarities[4]--;
-
-        int count = 0;
-        for (int similarity : similarities)
-        {
-            if (similarity == 1)
-            {
-                count++;
-            }
-        }
-
-        boolean hasThree = false;
-        boolean hasTwo = false;
-
-        for (int similarity : similarities)
-        {
-            if (similarity == 2)
-            {
-                hasThree = true;
-            }
-            if (similarity == 1)
-            {
-                hasTwo = true;
-            }
-        }
-
-        for (int similarity : similarities) {
-
-            if (similarity == 4)
-            {
-                return 7; //5 kind
-            }
-            else if (similarity == 3)
-            {
-                return 6; //4 kind
-            }
-
-            if (hasTwo && hasThree)
-            {
-                return 5; //full
-            }
-            else if (hasThree)
-            {
-                return 4; //3 kind
-            }
-            else if (count > 2)
-            {
-                return 3; //2 pair
-            }
-            else if (hasTwo)
-            {
-                return 2; //pair
-            }
-            else
-            {
-                return 1; //high
-            }
-        }
-        return 0; //shouldn't happen
-    }
-
-    public static Hand[] sortHandList(Hand[] handList)
-    {
-        for (int i = 0; i < handList.length; i++) //sorting array
-        {
-            if (!(i == handList.length - 1))
-            {
-                if (handList[i].getHandScore() < handList[i + 1].getHandScore())
-                {
-                    Hand tempH = handList[i];
-                    handList[i] = handList[i + 1];
-                    handList[i + 1] = tempH;
-                    i = -1;
-                }
-            }
-        }
-        return handList;
-    }
-
-    public String[] getCards() {
-        return cards;
-    }
-
-    public int getBid() {
-        return bid;
-    }
-
-    public double getHandScore() {
         return handScore;
     }
 }
