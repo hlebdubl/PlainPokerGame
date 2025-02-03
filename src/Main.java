@@ -81,7 +81,7 @@ public class Main {
                         Hand tempH = handList[i];
                         handList[i] = handList[i + 1];
                         handList[i + 1] = tempH;
-                        i = 0;
+                        i = -1;
                     }
                 }
             }
@@ -104,7 +104,7 @@ public class Main {
         System.out.println("Two pairs: " +    twoPair);
         System.out.println("Pairs: " + pair);
         System.out.println("High cards: " + high);
-        System.out.println("Total bid value: " + (totalBidVal - 1));
+        System.out.println("Total bid value: " + (totalBidVal));
 
     }
 }

@@ -273,6 +273,7 @@ public class Hand {
             }
         }
         similarities[0]--;
+
         for(int i = 0; i < 5; i++)
         {
             if (cards[1].equals(cards[i]))
@@ -281,6 +282,7 @@ public class Hand {
             }
         }
         similarities[1]--;
+
         for(int i = 0; i < 5; i++)
         {
             if (cards[2].equals(cards[i]))
@@ -289,6 +291,7 @@ public class Hand {
             }
         }
         similarities[2]--;
+
         for(int i = 0; i < 5; i++)
         {
             if (cards[3].equals(cards[i]))
@@ -297,6 +300,7 @@ public class Hand {
             }
         }
         similarities[3]--;
+
         for(int i = 0; i < 5; i++)
         {
             if (cards[4].equals(cards[i]))
@@ -306,79 +310,63 @@ public class Hand {
         }
         similarities[4]--;
 
-        boolean five = false;
-        boolean four = false;
-        boolean three = false;
-        boolean one = false;
-        boolean full = false;
-        boolean two = false;
-        boolean isHigh = false;
-
         int count = 0;
-        for(int i = 0; i < similarities.length; i++){
-            if(similarities[i] == 1){
+        for (int similarity : similarities)
+        {
+            if (similarity == 1)
+            {
                 count++;
             }
         }
+
         boolean hasThree = false;
         boolean hasTwo = false;
-        for (int similarity : similarities) {
-            if (similarity == 2) {
+
+        for (int similarity : similarities)
+        {
+            if (similarity == 2)
+            {
                 hasThree = true;
             }
-            if (similarity == 1) {
+            if (similarity == 1)
+            {
                 hasTwo = true;
             }
         }
 
         for (int similarity : similarities) {
 
-            if (similarity == 4) {
-                five = true;
-            } else if (similarity == 3) {
-                four = true;
+            if (similarity == 4)
+            {
+                return 7; //5 kind
+            }
+            else if (similarity == 3)
+            {
+                return 6; //4 kind
             }
 
-            if (hasTwo && hasThree) {
-                full = true;
-            } else if (hasThree) {
-                three = true;
-            } else if (count == 4) {
-                two = true;
-            } else if (similarity == 1) {
-                one = true;
-            } else if (!five && !four && !three && !one && !two && !full) {
-                isHigh = true;
+            if (hasTwo && hasThree)
+            {
+                return 5; //full
+            }
+            else if (hasThree)
+            {
+                return 4; //3 kind
+            }
+            else if (count > 2)
+            {
+                return 3; //2 pair
+            }
+            else if (hasTwo)
+            {
+                return 2; //pair
+            }
+            else
+            {
+                return 1; //high
             }
         }
-        if(five)
-        {
-            return 7;
-        }
-        if(four)
-        {
-            return 6;
-        }
-        if(full)
-        {
-            return 5;
-        }
-        if(three)
-        {
-            return 4;
-        }
-        if(two)
-        {
-            return 3;
-        }
-        if(one)
-        {
-            return 2;
-        }
-        else
-        {
-            return 1;
-        }
+        return 0; //shouldn't happen
     }
 
     public String[] getCards() {
