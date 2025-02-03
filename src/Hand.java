@@ -14,7 +14,7 @@ public class Hand {
         cards[3] = hand[3];
         cards[4] = hand[4];
 
-        int currentHand = Main.detectHands(cards);
+        int currentHand = detectHands();
 
         if (currentHand == 7)
         {
@@ -258,6 +258,126 @@ public class Hand {
             case "2":
                 handScore += 0.0000000001;
                 break;
+        }
+    }
+
+    public int detectHands()
+    {
+        int[] similarities = new int[5];
+
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[0].equals(cards[i]))
+            {
+                similarities[0]++;
+            }
+        }
+        similarities[0]--;
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[1].equals(cards[i]))
+            {
+                similarities[1]++;
+            }
+        }
+        similarities[1]--;
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[2].equals(cards[i]))
+            {
+                similarities[2]++;
+            }
+        }
+        similarities[2]--;
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[3].equals(cards[i]))
+            {
+                similarities[3]++;
+            }
+        }
+        similarities[3]--;
+        for(int i = 0; i < 5; i++)
+        {
+            if (cards[4].equals(cards[i]))
+            {
+                similarities[4]++;
+            }
+        }
+        similarities[4]--;
+
+        boolean five = false;
+        boolean four = false;
+        boolean three = false;
+        boolean one = false;
+        boolean full = false;
+        boolean two = false;
+        boolean isHigh = false;
+
+        int count = 0;
+        for(int i = 0; i < similarities.length; i++){
+            if(similarities[i] == 1){
+                count++;
+            }
+        }
+        boolean hasThree = false;
+        boolean hasTwo = false;
+        for (int similarity : similarities) {
+            if (similarity == 2) {
+                hasThree = true;
+            }
+            if (similarity == 1) {
+                hasTwo = true;
+            }
+        }
+
+        for (int similarity : similarities) {
+
+            if (similarity == 4) {
+                five = true;
+            } else if (similarity == 3) {
+                four = true;
+            }
+
+            if (hasTwo && hasThree) {
+                full = true;
+            } else if (hasThree) {
+                three = true;
+            } else if (count == 4) {
+                two = true;
+            } else if (similarity == 1) {
+                one = true;
+            } else if (!five && !four && !three && !one && !two && !full) {
+                isHigh = true;
+            }
+        }
+        if(five)
+        {
+            return 7;
+        }
+        if(four)
+        {
+            return 6;
+        }
+        if(full)
+        {
+            return 5;
+        }
+        if(three)
+        {
+            return 4;
+        }
+        if(two)
+        {
+            return 3;
+        }
+        if(one)
+        {
+            return 2;
+        }
+        else
+        {
+            return 1;
         }
     }
 

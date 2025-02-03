@@ -9,148 +9,14 @@ import java.util.Arrays;
 public class Main {
 
     static int fiveKind;
-    static int fullHouse;
     static int fourKind;
+    static int fullHouse;
     static int threeKind;
     static int twoPair;
     static int pair;
     static int high;
 
     static int totalBidVal = 0;
-
-    public static int detectHands(String[] h)
-    {
-        int indexZeroSimilarities = 0;
-        int indexOneSimilarities = 0;
-        int indexTwoSimilarities = 0;
-        int indexThreeSimilarities = 0;
-        int indexFourSimilarities = 0;
-
-        for(int i = 0; i < 5; i++)
-        {
-            if (h[0].equals(h[i]))
-            {
-                indexZeroSimilarities++;
-            }
-        }
-        indexZeroSimilarities--;
-        for(int i = 0; i < 5; i++)
-        {
-            if (h[1].equals(h[i]))
-            {
-                indexOneSimilarities++;
-            }
-        }
-        indexOneSimilarities--;
-        for(int i = 0; i < 5; i++)
-        {
-            if (h[2].equals(h[i]))
-            {
-                indexTwoSimilarities++;
-            }
-        }
-        indexTwoSimilarities--;
-        for(int i = 0; i < 5; i++)
-        {
-            if (h[3].equals(h[i]))
-            {
-                indexThreeSimilarities++;
-            }
-        }
-        indexThreeSimilarities--;
-        for(int i = 0; i < 5; i++)
-        {
-            if (h[4].equals(h[i]))
-            {
-                indexFourSimilarities++;
-            }
-        }
-        indexFourSimilarities--;
-
-        int[] similarities = new int[5];
-        similarities[0] = indexZeroSimilarities;
-        similarities[1] = indexOneSimilarities;
-        similarities[2] = indexTwoSimilarities;
-        similarities[3] = indexThreeSimilarities;
-        similarities[4] = indexFourSimilarities;
-
-        boolean five = false;
-        boolean four = false;
-        boolean three = false;
-        boolean one = false;
-        boolean full = false;
-        boolean two = false;
-        boolean isHigh = false;
-
-        int count = 0;
-        for(int i = 0; i < similarities.length; i++){
-            if(similarities[i] == 1){
-                count++;
-            }
-        }
-        boolean hasThree = false;
-        boolean hasTwo = false;
-        for (int similarity : similarities) {
-            if (similarity == 2) {
-                hasThree = true;
-            }
-            if (similarity == 1) {
-                hasTwo = true;
-            }
-        }
-
-        for (int similarity : similarities) {
-
-            if (similarity == 4) {
-                five = true;
-            } else if (similarity == 3) {
-                four = true;
-            }
-
-            if (hasTwo && hasThree) {
-                full = true;
-            } else if (hasThree) {
-                three = true;
-            } else if (count == 4) {
-                two = true;
-            } else if (similarity == 1) {
-                one = true;
-            } else if (!five && !four && !three && !one && !two && !full) {
-                isHigh = true;
-            }
-        }
-        if(five){
-            fiveKind++;
-            return 7;
-        }
-        if(four){
-            fourKind++;
-            return 5;
-        }
-        if(three){
-            threeKind++;
-            return 4;
-        }
-        if(full){
-            fullHouse++;
-            return 6;
-        }
-        if(one){
-            pair++;
-            return 2;
-        }
-        if(two){
-            twoPair++;
-            return 3;
-        }
-        if(isHigh){
-            high++;
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }
 
     public static void main(String[] args) {
 
@@ -176,13 +42,37 @@ public class Main {
 
                 Hand h = new Hand(stringHands);
 
-                handList[i] = h;
+                //detect hands and add them to total counts
+                int handType = h.detectHands();
+                switch (handType)
+                {
+                    case 7:
+                        fiveKind++;
+                        break;
+                    case 6:
+                        fourKind++;
+                        break;
+                    case 5:
+                        fullHouse++;
+                        break;
+                    case 4:
+                        threeKind++;
+                        break;
+                    case 3:
+                        twoPair++;
+                        break;
+                    case 2:
+                        pair++;
+                        break;
+                    case 1:
+                        high++;
+                        break;
+                }
 
-//                System.out.println(Arrays.toString(stringHands));
-//                detectHands(stringHands);
+                handList[i] = h;
             }
 
-            for (int i = 0; i < handList.length; i++)
+            for (int i = 0; i < handList.length; i++) //sorting array
             {
                 if (!(i == handList.length - 1))
                 {
@@ -196,7 +86,7 @@ public class Main {
                 }
             }
 
-            for (int i = 0; i < handList.length; i++)
+            for (int i = 0; i < handList.length; i++) //getting rank from sorted list and using it for totalBidVal
             {
                 totalBidVal += (handList[i].getBid() * (handList.length - i));
             }
