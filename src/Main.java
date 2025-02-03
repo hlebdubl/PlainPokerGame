@@ -72,19 +72,7 @@ public class Main {
                 handList[i] = h;
             }
 
-            for (int i = 0; i < handList.length; i++) //sorting array
-            {
-                if (!(i == handList.length - 1))
-                {
-                    if (handList[i].getHandScore() < handList[i + 1].getHandScore())
-                    {
-                        Hand tempH = handList[i];
-                        handList[i] = handList[i + 1];
-                        handList[i + 1] = tempH;
-                        i = -1;
-                    }
-                }
-            }
+            handList = Hand.sortHandList(handList);
 
             for (int i = 0; i < handList.length; i++) //getting rank from sorted list and using it for totalBidVal
             {
