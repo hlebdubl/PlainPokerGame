@@ -13,6 +13,13 @@ public class Hand {
         CARDS[2] = hand[2];
         CARDS[3] = hand[3];
         CARDS[4] = hand[4];
+        for(int i = 0; i < 5; i++)
+        {
+            if (CARDS[i].equals("Jack"))
+            {
+                jackCount++;
+            }
+        }
     }
 
     public int detectHands(boolean jacksOn)
@@ -25,11 +32,8 @@ public class Hand {
             {
                 similarities[0]++;
             }
-            if (CARDS[i].equals("Jack"))
-            {
-                jackCount++;
-            }
         }
+
         similarities[0]--;
 
         for(int i = 0; i < 5; i++)

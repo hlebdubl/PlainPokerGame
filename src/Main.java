@@ -79,11 +79,34 @@ public class Main {
                 totalBidVal += (handList[i].getBid() * (handList.length - i));
             }
 
-            handList = Hand.sortHandList(handList, true);
+            System.out.println("Five of a kind: " + fiveKind);
+            System.out.println("Full houses: " + fullHouse);
+            System.out.println("Four of a kind: " + fourKind);
+            System.out.println("Three of a kind: " + threeKind);
+            System.out.println("Two pairs: " +    twoPair);
+            System.out.println("Pairs: " + pair);
+            System.out.println("High cards: " + high);
+            System.out.println("Total bid value: " + (totalBidVal));
 
-            for (int i = 0; i < handList.length; i++) //getting rank from sorted list and using it for totalBidVal
+
+            Hand[] jackList = new Hand[fileArray.length];
+
+            for (int i = 0; i < fileArray.length; i++) {
+
+                String[] stringHands = fileArray[i].split(",|\\|");
+
+                Hand j = new Hand(stringHands);
+
+                //detect hands and add them to total counts
+                int handType = j.detectHands(true);
+                jackList[i] = j;
+            }
+
+            jackList = Hand.sortHandList(jackList, true);
+
+            for (int i = 0; i < jackList.length; i++) //getting rank from sorted list and using it for totalBidVal
             {
-                totalJackValue += (handList[i].getBid() * (handList.length - i));
+                totalJackValue += (jackList[i].getBid() * (jackList.length - i));
             }
 
         }
@@ -92,14 +115,14 @@ public class Main {
             System.exit(1);
         }
 
-        System.out.println("Five of a kind: " + fiveKind);
-        System.out.println("Full houses: " + fullHouse);
-        System.out.println("Four of a kind: " + fourKind);
-        System.out.println("Three of a kind: " + threeKind);
-        System.out.println("Two pairs: " +    twoPair);
-        System.out.println("Pairs: " + pair);
-        System.out.println("High cards: " + high);
-        System.out.println("Total bid value: " + (totalBidVal));
+//        System.out.println("Five of a kind: " + fiveKind);
+//        System.out.println("Full houses: " + fullHouse);
+//        System.out.println("Four of a kind: " + fourKind);
+//        System.out.println("Three of a kind: " + threeKind);
+//        System.out.println("Two pairs: " +    twoPair);
+//        System.out.println("Pairs: " + pair);
+//        System.out.println("High cards: " + high);
+//        System.out.println("Total bid value: " + (totalBidVal));
         System.out.println("Total bid value with Jacks Wild: " + totalJackValue);
 
     }
