@@ -13,11 +13,9 @@ public class Hand {
         CARDS[2] = hand[2];
         CARDS[3] = hand[3];
         CARDS[4] = hand[4];
-
-        handScore = getHandScore();
     }
 
-    public int detectHands()
+    public int detectHands(boolean jacksOn)
     {
         int[] similarities = new int[5];
 
@@ -95,7 +93,7 @@ public class Hand {
             }
             else if (similarity == 3)
             {
-                if (jackCount == 1)
+                if (jackCount == 1 && jacksOn)
                 {
                     return 7; //5 kind
                 }
@@ -107,7 +105,7 @@ public class Hand {
 
             if (hasTwo && hasThree)
             {
-                if (jackCount == 2 || jackCount == 3)
+                if ((jackCount == 2 || jackCount == 3) && jacksOn)
                 {
                     return 7; //5 kind
                 }
@@ -118,7 +116,7 @@ public class Hand {
             }
             else if (hasThree)
             {
-                if (jackCount == 3 || jackCount == 1)
+                if ((jackCount == 3 || jackCount == 1) && jacksOn)
                 {
                     return 6; //4 kind
                 }
@@ -129,11 +127,11 @@ public class Hand {
             }
             else if (count > 2)
             {
-                if (jackCount == 2)
+                if (jackCount == 2 && jacksOn)
                 {
                     return 6; //4 kind
                 }
-                else if (jackCount == 1)
+                else if (jackCount == 1 && jacksOn)
                 {
                     return 5; //full
                 }
@@ -144,7 +142,7 @@ public class Hand {
             }
             else if (hasTwo)
             {
-                if (jackCount == 1 || jackCount == 2)
+                if ((jackCount == 1 || jackCount == 2) && jacksOn)
                 {
                     return 4; //3 kind
                 }
@@ -155,7 +153,7 @@ public class Hand {
             }
             else
             {
-                if (jackCount == 1)
+                if ((jackCount == 1) && jacksOn)
                 {
                     return 2; //pair
                 }
@@ -168,13 +166,13 @@ public class Hand {
         return 0; //shouldn't happen
     }
 
-    public static Hand[] sortHandList(Hand[] handList)
+    public static Hand[] sortHandList(Hand[] handList, boolean jacksOn)
     {
         for (int i = 0; i < handList.length; i++) //sorting array
         {
             if (!(i == handList.length - 1)) //Index out of bounds protection
             {
-                if (handList[i].getHandScore() < handList[i + 1].getHandScore())
+                if (handList[i].getHandScore(jacksOn) < handList[i + 1].getHandScore(jacksOn))
                 {
                     Hand tempH = handList[i];
                     handList[i] = handList[i + 1];
@@ -191,8 +189,8 @@ public class Hand {
         return bid;
     }
 
-    public double getHandScore() {
-        int currentHand = detectHands();
+    public double getHandScore(boolean jacksOn) {
+        int currentHand = detectHands(jacksOn);
 
         if (currentHand == 7)
         {
@@ -223,219 +221,428 @@ public class Hand {
             handScore = 1.0000000000;
         }
 
-        switch (CARDS[0])
-        {
-            case "Ace":
-                handScore += 0.13;
-                break;
-            case "King":
-                handScore += 0.12;
-                break;
-            case "Queen":
-                handScore += 0.11;
-                break;
-            case "Jack":
-                handScore += 0.1;
-                break;
-            case "10":
-                handScore += 0.09;
-                break;
-            case "9":
-                handScore += 0.08;
-                break;
-            case "8":
-                handScore += 0.07;
-                break;
-            case "7":
-                handScore += 0.06;
-                break;
-            case "6":
-                handScore += 0.05;
-                break;
-            case "5":
-                handScore += 0.04;
-                break;
-            case "4":
-                handScore += 0.03;
-                break;
-            case "3":
-                handScore += 0.02;
-                break;
-            case "2":
-                handScore += 0.01;
-                break;
+        if (!jacksOn) {
+            switch (CARDS[0]) {
+                case "Ace":
+                    handScore += 0.13;
+                    break;
+                case "King":
+                    handScore += 0.12;
+                    break;
+                case "Queen":
+                    handScore += 0.11;
+                    break;
+                case "Jack":
+                    handScore += 0.1;
+                    break;
+                case "10":
+                    handScore += 0.09;
+                    break;
+                case "9":
+                    handScore += 0.08;
+                    break;
+                case "8":
+                    handScore += 0.07;
+                    break;
+                case "7":
+                    handScore += 0.06;
+                    break;
+                case "6":
+                    handScore += 0.05;
+                    break;
+                case "5":
+                    handScore += 0.04;
+                    break;
+                case "4":
+                    handScore += 0.03;
+                    break;
+                case "3":
+                    handScore += 0.02;
+                    break;
+                case "2":
+                    handScore += 0.01;
+                    break;
 
-        }
-        switch (CARDS[1])
-        {
-            case "Ace":
-                handScore += 0.0013;
-                break;
-            case "King":
-                handScore += 0.0012;
-                break;
-            case "Queen":
-                handScore += 0.0011;
-                break;
-            case "Jack":
-                handScore += 0.001;
-                break;
-            case "10":
-                handScore += 0.0009;
-                break;
-            case "9":
-                handScore += 0.0008;
-                break;
-            case "8":
-                handScore += 0.0007;
-                break;
-            case "7":
-                handScore += 0.0006;
-                break;
-            case "6":
-                handScore += 0.0005;
-                break;
-            case "5":
-                handScore += 0.0004;
-                break;
-            case "4":
-                handScore += 0.0003;
-                break;
-            case "3":
-                handScore += 0.0002;
-                break;
-            case "2":
-                handScore += 0.0001;
-                break;
+            }
+            switch (CARDS[1]) {
+                case "Ace":
+                    handScore += 0.0013;
+                    break;
+                case "King":
+                    handScore += 0.0012;
+                    break;
+                case "Queen":
+                    handScore += 0.0011;
+                    break;
+                case "Jack":
+                    handScore += 0.001;
+                    break;
+                case "10":
+                    handScore += 0.0009;
+                    break;
+                case "9":
+                    handScore += 0.0008;
+                    break;
+                case "8":
+                    handScore += 0.0007;
+                    break;
+                case "7":
+                    handScore += 0.0006;
+                    break;
+                case "6":
+                    handScore += 0.0005;
+                    break;
+                case "5":
+                    handScore += 0.0004;
+                    break;
+                case "4":
+                    handScore += 0.0003;
+                    break;
+                case "3":
+                    handScore += 0.0002;
+                    break;
+                case "2":
+                    handScore += 0.0001;
+                    break;
 
-        }
-        switch (CARDS[2])
-        {
-            case "Ace":
-                handScore += 0.000013;
-                break;
-            case "King":
-                handScore += 0.000012;
-                break;
-            case "Queen":
-                handScore += 0.000011;
-                break;
-            case "Jack":
-                handScore += 0.00001;
-                break;
-            case "10":
-                handScore += 0.000009;
-                break;
-            case "9":
-                handScore += 0.000008;
-                break;
-            case "8":
-                handScore += 0.000007;
-                break;
-            case "7":
-                handScore += 0.000006;
-                break;
-            case "6":
-                handScore += 0.000005;
-                break;
-            case "5":
-                handScore += 0.000004;
-                break;
-            case "4":
-                handScore += 0.000003;
-                break;
-            case "3":
-                handScore += 0.000002;
-                break;
-            case "2":
-                handScore += 0.000001;
-                break;
+            }
+            switch (CARDS[2]) {
+                case "Ace":
+                    handScore += 0.000013;
+                    break;
+                case "King":
+                    handScore += 0.000012;
+                    break;
+                case "Queen":
+                    handScore += 0.000011;
+                    break;
+                case "Jack":
+                    handScore += 0.00001;
+                    break;
+                case "10":
+                    handScore += 0.000009;
+                    break;
+                case "9":
+                    handScore += 0.000008;
+                    break;
+                case "8":
+                    handScore += 0.000007;
+                    break;
+                case "7":
+                    handScore += 0.000006;
+                    break;
+                case "6":
+                    handScore += 0.000005;
+                    break;
+                case "5":
+                    handScore += 0.000004;
+                    break;
+                case "4":
+                    handScore += 0.000003;
+                    break;
+                case "3":
+                    handScore += 0.000002;
+                    break;
+                case "2":
+                    handScore += 0.000001;
+                    break;
 
-        }
-        switch (CARDS[3])
-        {
-            case "Ace":
-                handScore += 0.00000013;
-                break;
-            case "King":
-                handScore += 0.00000012;
-                break;
-            case "Queen":
-                handScore += 0.00000011;
-                break;
-            case "Jack":
-                handScore += 0.0000001;
-                break;
-            case "10":
-                handScore += 0.00000009;
-                break;
-            case "9":
-                handScore += 0.00000008;
-                break;
-            case "8":
-                handScore += 0.00000007;
-                break;
-            case "7":
-                handScore += 0.00000006;
-                break;
-            case "6":
-                handScore += 0.00000005;
-                break;
-            case "5":
-                handScore += 0.00000004;
-                break;
-            case "4":
-                handScore += 0.00000003;
-                break;
-            case "3":
-                handScore += 0.00000002;
-                break;
-            case "2":
-                handScore += 0.00000001;
-                break;
+            }
+            switch (CARDS[3]) {
+                case "Ace":
+                    handScore += 0.00000013;
+                    break;
+                case "King":
+                    handScore += 0.00000012;
+                    break;
+                case "Queen":
+                    handScore += 0.00000011;
+                    break;
+                case "Jack":
+                    handScore += 0.0000001;
+                    break;
+                case "10":
+                    handScore += 0.00000009;
+                    break;
+                case "9":
+                    handScore += 0.00000008;
+                    break;
+                case "8":
+                    handScore += 0.00000007;
+                    break;
+                case "7":
+                    handScore += 0.00000006;
+                    break;
+                case "6":
+                    handScore += 0.00000005;
+                    break;
+                case "5":
+                    handScore += 0.00000004;
+                    break;
+                case "4":
+                    handScore += 0.00000003;
+                    break;
+                case "3":
+                    handScore += 0.00000002;
+                    break;
+                case "2":
+                    handScore += 0.00000001;
+                    break;
 
+            }
+            switch (CARDS[4]) {
+                case "Ace":
+                    handScore += 0.0000000013;
+                    break;
+                case "King":
+                    handScore += 0.0000000012;
+                    break;
+                case "Queen":
+                    handScore += 0.0000000011;
+                    break;
+                case "Jack":
+                    handScore += 0.000000001;
+                    break;
+                case "10":
+                    handScore += 0.0000000009;
+                    break;
+                case "9":
+                    handScore += 0.0000000008;
+                    break;
+                case "8":
+                    handScore += 0.0000000007;
+                    break;
+                case "7":
+                    handScore += 0.0000000006;
+                    break;
+                case "6":
+                    handScore += 0.0000000005;
+                    break;
+                case "5":
+                    handScore += 0.0000000004;
+                    break;
+                case "4":
+                    handScore += 0.0000000003;
+                    break;
+                case "3":
+                    handScore += 0.0000000002;
+                    break;
+                case "2":
+                    handScore += 0.0000000001;
+                    break;
+            }
         }
-        switch (CARDS[4])
+        else
         {
-            case "Ace":
-                handScore += 0.0000000013;
-                break;
-            case "King":
-                handScore += 0.0000000012;
-                break;
-            case "Queen":
-                handScore += 0.0000000011;
-                break;
-            case "Jack":
-                handScore += 0.000000001;
-                break;
-            case "10":
-                handScore += 0.0000000009;
-                break;
-            case "9":
-                handScore += 0.0000000008;
-                break;
-            case "8":
-                handScore += 0.0000000007;
-                break;
-            case "7":
-                handScore += 0.0000000006;
-                break;
-            case "6":
-                handScore += 0.0000000005;
-                break;
-            case "5":
-                handScore += 0.0000000004;
-                break;
-            case "4":
-                handScore += 0.0000000003;
-                break;
-            case "3":
-                handScore += 0.0000000002;
-                break;
-            case "2":
-                handScore += 0.0000000001;
-                break;
+            switch (CARDS[0]) {
+                case "Ace":
+                    handScore += 0.13;
+                    break;
+                case "King":
+                    handScore += 0.12;
+                    break;
+                case "Queen":
+                    handScore += 0.11;
+                    break;
+                case "Jack":
+                    handScore += 0.01;
+                    break;
+                case "10":
+                    handScore += 0.1;
+                    break;
+                case "9":
+                    handScore += 0.09;
+                    break;
+                case "8":
+                    handScore += 0.08;
+                    break;
+                case "7":
+                    handScore += 0.07;
+                    break;
+                case "6":
+                    handScore += 0.06;
+                    break;
+                case "5":
+                    handScore += 0.05;
+                    break;
+                case "4":
+                    handScore += 0.04;
+                    break;
+                case "3":
+                    handScore += 0.03;
+                    break;
+                case "2":
+                    handScore += 0.02;
+                    break;
+
+            }
+            switch (CARDS[1]) {
+                case "Ace":
+                    handScore += 0.0013;
+                    break;
+                case "King":
+                    handScore += 0.0012;
+                    break;
+                case "Queen":
+                    handScore += 0.0011;
+                    break;
+                case "Jack":
+                    handScore += 0.0001;
+                    break;
+                case "10":
+                    handScore += 0.001;
+                    break;
+                case "9":
+                    handScore += 0.0009;
+                    break;
+                case "8":
+                    handScore += 0.0008;
+                    break;
+                case "7":
+                    handScore += 0.0007;
+                    break;
+                case "6":
+                    handScore += 0.0006;
+                    break;
+                case "5":
+                    handScore += 0.0005;
+                    break;
+                case "4":
+                    handScore += 0.0004;
+                    break;
+                case "3":
+                    handScore += 0.0003;
+                    break;
+                case "2":
+                    handScore += 0.0002;
+                    break;
+
+            }
+            switch (CARDS[2]) {
+                case "Ace":
+                    handScore += 0.000013;
+                    break;
+                case "King":
+                    handScore += 0.000012;
+                    break;
+                case "Queen":
+                    handScore += 0.000011;
+                    break;
+                case "Jack":
+                    handScore += 0.000001;
+                    break;
+                case "10":
+                    handScore += 0.00001;
+                    break;
+                case "9":
+                    handScore += 0.000009;
+                    break;
+                case "8":
+                    handScore += 0.000008;
+                    break;
+                case "7":
+                    handScore += 0.000007;
+                    break;
+                case "6":
+                    handScore += 0.000006;
+                    break;
+                case "5":
+                    handScore += 0.000005;
+                    break;
+                case "4":
+                    handScore += 0.000004;
+                    break;
+                case "3":
+                    handScore += 0.000003;
+                    break;
+                case "2":
+                    handScore += 0.000002;
+                    break;
+
+            }
+            switch (CARDS[3]) {
+                case "Ace":
+                    handScore += 0.00000013;
+                    break;
+                case "King":
+                    handScore += 0.00000012;
+                    break;
+                case "Queen":
+                    handScore += 0.00000011;
+                    break;
+                case "Jack":
+                    handScore += 0.00000001;
+                    break;
+                case "10":
+                    handScore += 0.0000001;
+                    break;
+                case "9":
+                    handScore += 0.00000009;
+                    break;
+                case "8":
+                    handScore += 0.00000008;
+                    break;
+                case "7":
+                    handScore += 0.00000007;
+                    break;
+                case "6":
+                    handScore += 0.00000006;
+                    break;
+                case "5":
+                    handScore += 0.00000005;
+                    break;
+                case "4":
+                    handScore += 0.00000004;
+                    break;
+                case "3":
+                    handScore += 0.00000003;
+                    break;
+                case "2":
+                    handScore += 0.00000002;
+                    break;
+
+            }
+            switch (CARDS[4]) {
+                case "Ace":
+                    handScore += 0.0000000013;
+                    break;
+                case "King":
+                    handScore += 0.0000000012;
+                    break;
+                case "Queen":
+                    handScore += 0.0000000011;
+                    break;
+                case "Jack":
+                    handScore += 0.0000000001;
+                    break;
+                case "10":
+                    handScore += 0.000000001;
+                    break;
+                case "9":
+                    handScore += 0.0000000009;
+                    break;
+                case "8":
+                    handScore += 0.0000000008;
+                    break;
+                case "7":
+                    handScore += 0.0000000007;
+                    break;
+                case "6":
+                    handScore += 0.0000000006;
+                    break;
+                case "5":
+                    handScore += 0.0000000005;
+                    break;
+                case "4":
+                    handScore += 0.0000000004;
+                    break;
+                case "3":
+                    handScore += 0.0000000003;
+                    break;
+                case "2":
+                    handScore += 0.0000000002;
+                    break;
+            }
         }
         return handScore;
     }

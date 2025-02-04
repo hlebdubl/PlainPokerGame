@@ -43,7 +43,7 @@ public class Main {
                 Hand h = new Hand(stringHands);
 
                 //detect hands and add them to total counts
-                int handType = h.detectHands();
+                int handType = h.detectHands(false);
                 switch (handType)
                 {
                     case 7:
@@ -72,11 +72,18 @@ public class Main {
                 handList[i] = h;
             }
 
-            handList = Hand.sortHandList(handList);
+            handList = Hand.sortHandList(handList, false);
 
             for (int i = 0; i < handList.length; i++) //getting rank from sorted list and using it for totalBidVal
             {
                 totalBidVal += (handList[i].getBid() * (handList.length - i));
+            }
+
+            handList = Hand.sortHandList(handList, true);
+
+            for (int i = 0; i < handList.length; i++) //getting rank from sorted list and using it for totalBidVal
+            {
+                totalJackValue += (handList[i].getBid() * (handList.length - i));
             }
 
         }
