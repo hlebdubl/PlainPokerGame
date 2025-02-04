@@ -1,7 +1,8 @@
 public class Hand {
 
     double handScore;
-    int bid;
+    private int bid;
+    private int jackCount;
     private final String[] CARDS = new String[5];
 
     public Hand (String[] hand)
@@ -25,6 +26,10 @@ public class Hand {
             if (CARDS[0].equals(CARDS[i]))
             {
                 similarities[0]++;
+            }
+            if (CARDS[i].equals("Jack"))
+            {
+                jackCount++;
             }
         }
         similarities[0]--;
@@ -90,28 +95,74 @@ public class Hand {
             }
             else if (similarity == 3)
             {
-                return 6; //4 kind
+                if (jackCount == 1)
+                {
+                    return 7; //5 kind
+                }
+                else
+                {
+                    return 6; //4 kind
+                }
             }
 
             if (hasTwo && hasThree)
             {
-                return 5; //full
+                if (jackCount == 2 || jackCount == 3)
+                {
+                    return 7; //5 kind
+                }
+                else
+                {
+                    return 5; //full
+                }
             }
             else if (hasThree)
             {
-                return 4; //3 kind
+                if (jackCount == 3 || jackCount == 1)
+                {
+                    return 6; //4 kind
+                }
+                else
+                {
+                    return 4; //3 kind
+                }
             }
             else if (count > 2)
             {
-                return 3; //2 pair
+                if (jackCount == 2)
+                {
+                    return 6; //4 kind
+                }
+                else if (jackCount == 1)
+                {
+                    return 5; //full
+                }
+                else
+                {
+                    return 3; //2 pair
+                }
             }
             else if (hasTwo)
             {
-                return 2; //pair
+                if (jackCount == 1 || jackCount == 2)
+                {
+                    return 4; //3 kind
+                }
+                else
+                {
+                    return 2; //pair
+                }
             }
             else
             {
-                return 1; //high
+                if (jackCount == 1)
+                {
+                    return 2; //pair
+                }
+                else
+                {
+                    return 1; //high
+                }
             }
         }
         return 0; //shouldn't happen
