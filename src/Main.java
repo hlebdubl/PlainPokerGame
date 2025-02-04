@@ -15,7 +15,7 @@ public class Main {
     static int twoPair;
     static int pair;
     static int high;
-
+    static int totalJackValue;
     static int totalBidVal = 0;
 
     public static void main(String[] args) {
@@ -93,6 +93,7 @@ public class Main {
         System.out.println("Pairs: " + pair);
         System.out.println("High cards: " + high);
         System.out.println("Total bid value: " + (totalBidVal));
+        System.out.println("Total bid value with Jacks Wild: " + totalJackValue);
 
     }
 }
