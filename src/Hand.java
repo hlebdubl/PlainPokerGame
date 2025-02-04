@@ -1,18 +1,17 @@
 public class Hand {
 
     double handScore;
-    int rank;
     int bid;
-    private String[] cards = new String[5];
+    private final String[] CARDS = new String[5];
 
     public Hand (String[] hand)
     {
         bid = Integer.parseInt(hand[hand.length -1]);
-        cards[0] = hand[0];
-        cards[1] = hand[1];
-        cards[2] = hand[2];
-        cards[3] = hand[3];
-        cards[4] = hand[4];
+        CARDS[0] = hand[0];
+        CARDS[1] = hand[1];
+        CARDS[2] = hand[2];
+        CARDS[3] = hand[3];
+        CARDS[4] = hand[4];
 
         handScore = getHandScore();
     }
@@ -23,7 +22,7 @@ public class Hand {
 
         for(int i = 0; i < 5; i++)
         {
-            if (cards[0].equals(cards[i]))
+            if (CARDS[0].equals(CARDS[i]))
             {
                 similarities[0]++;
             }
@@ -32,7 +31,7 @@ public class Hand {
 
         for(int i = 0; i < 5; i++)
         {
-            if (cards[1].equals(cards[i]))
+            if (CARDS[1].equals(CARDS[i]))
             {
                 similarities[1]++;
             }
@@ -41,7 +40,7 @@ public class Hand {
 
         for(int i = 0; i < 5; i++)
         {
-            if (cards[2].equals(cards[i]))
+            if (CARDS[2].equals(CARDS[i]))
             {
                 similarities[2]++;
             }
@@ -50,7 +49,7 @@ public class Hand {
 
         for(int i = 0; i < 5; i++)
         {
-            if (cards[3].equals(cards[i]))
+            if (CARDS[3].equals(CARDS[i]))
             {
                 similarities[3]++;
             }
@@ -59,7 +58,7 @@ public class Hand {
 
         for(int i = 0; i < 5; i++)
         {
-            if (cards[4].equals(cards[i]))
+            if (CARDS[4].equals(CARDS[i]))
             {
                 similarities[4]++;
             }
@@ -67,14 +66,6 @@ public class Hand {
         similarities[4]--;
 
         int count = 0;
-        for (int similarity : similarities)
-        {
-            if (similarity == 1)
-            {
-                count++;
-            }
-        }
-
         boolean hasThree = false;
         boolean hasTwo = false;
 
@@ -86,6 +77,7 @@ public class Hand {
             }
             if (similarity == 1)
             {
+                count++;
                 hasTwo = true;
             }
         }
@@ -129,22 +121,19 @@ public class Hand {
     {
         for (int i = 0; i < handList.length; i++) //sorting array
         {
-            if (!(i == handList.length - 1))
+            if (!(i == handList.length - 1)) //Index out of bounds protection
             {
                 if (handList[i].getHandScore() < handList[i + 1].getHandScore())
                 {
                     Hand tempH = handList[i];
                     handList[i] = handList[i + 1];
-                    handList[i + 1] = tempH;
+                    handList[i + 1] = tempH; //Swaps position of elements
+
                     i = -1;
                 }
             }
         }
         return handList;
-    }
-
-    public String[] getCards() {
-        return cards;
     }
 
     public int getBid() {
@@ -183,7 +172,7 @@ public class Hand {
             handScore = 1.0000000000;
         }
 
-        switch (cards[0])
+        switch (CARDS[0])
         {
             case "Ace":
                 handScore += 0.13;
@@ -226,7 +215,7 @@ public class Hand {
                 break;
 
         }
-        switch (cards[1])
+        switch (CARDS[1])
         {
             case "Ace":
                 handScore += 0.0013;
@@ -269,7 +258,7 @@ public class Hand {
                 break;
 
         }
-        switch (cards[2])
+        switch (CARDS[2])
         {
             case "Ace":
                 handScore += 0.000013;
@@ -312,7 +301,7 @@ public class Hand {
                 break;
 
         }
-        switch (cards[3])
+        switch (CARDS[3])
         {
             case "Ace":
                 handScore += 0.00000013;
@@ -355,7 +344,7 @@ public class Hand {
                 break;
 
         }
-        switch (cards[4])
+        switch (CARDS[4])
         {
             case "Ace":
                 handScore += 0.0000000013;
