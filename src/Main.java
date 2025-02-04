@@ -115,14 +115,6 @@ public class Main {
             System.exit(1);
         }
 
-//        System.out.println("Five of a kind: " + fiveKind);
-//        System.out.println("Full houses: " + fullHouse);
-//        System.out.println("Four of a kind: " + fourKind);
-//        System.out.println("Three of a kind: " + threeKind);
-//        System.out.println("Two pairs: " +    twoPair);
-//        System.out.println("Pairs: " + pair);
-//        System.out.println("High cards: " + high);
-//        System.out.println("Total bid value: " + (totalBidVal));
         System.out.println("Total bid value with Jacks Wild: " + totalJackValue);
 
     }
