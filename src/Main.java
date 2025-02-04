@@ -47,7 +47,6 @@ public class Main {
 
                 //detect hands and add them to total counts
                 int handType = h.detectHands(false);
-                int jackType = j.detectHands(true);
                 switch (handType)
                 {
                     case 7:
